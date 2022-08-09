@@ -18,6 +18,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.os.Trace;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -39,11 +40,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.examples.detection.MainActivity;
+import org.tensorflow.lite.examples.detection.R;
 import org.tensorflow.lite.examples.detection.env.Logger;
 import org.tensorflow.lite.examples.detection.env.Utils;
 
 import static org.tensorflow.lite.examples.detection.env.Utils.expit;
 import static org.tensorflow.lite.examples.detection.env.Utils.softmax;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.gpu.GpuDelegate;
@@ -58,10 +62,10 @@ import org.tensorflow.lite.nnapi.NnApiDelegate;
  * - https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
  * - https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_mobile_tensorflowlite.md#running-our-model-on-android
  */
-public class YoloV4Classifier implements Classifier {
+public class YoloV4Classifier extends AppCompatActivity implements Classifier {
 
     /**
-     * Initializes a native TensorFlow session for classifying images.
+     * Initializes a native TensorFlow session for classifying images.p
      *
      * @param assetManager  The asset manager to be used to load assets.
      * @param modelFilename The filepath of the model GraphDef protocol buffer.
@@ -178,7 +182,7 @@ public class YoloV4Classifier implements Classifier {
     private static boolean isGPU = true;
 
     // tiny or not
-    private static boolean isTiny = false;
+    private static boolean isTiny = true;
 
     // config yolov4 tiny
     private static final int[] OUTPUT_WIDTH_TINY = new int[]{2535, 2535};
@@ -239,7 +243,7 @@ public class YoloV4Classifier implements Classifier {
                     Recognition detection = detections[j];
                     RectF b = detection.getLocation();
                     if (box_iou(max.getLocation(), b) < mNmsThresh) {
-                        pq.add(detection);
+                        pq.add(detection) ;
                     }
                 }
             }
@@ -439,6 +443,7 @@ public class YoloV4Classifier implements Classifier {
             float maxClass = 0;
             int detectedClass = -1;
             final float[] classes = new float[labels.size()];
+
             for (int c = 0;c< labels.size();c++){
                 classes [c] = out_score[0][i][c];
             }
@@ -460,6 +465,11 @@ public class YoloV4Classifier implements Classifier {
                         Math.min(bitmap.getWidth() - 1, xPos + w / 2),
                         Math.min(bitmap.getHeight() - 1, yPos + h / 2));
                 detections.add(new Recognition("" + i, labels.get(detectedClass),score,rectF,detectedClass ));
+                if(labels.get(detectedClass).equals("reusable")) {
+                    setContentView(R.layout.tfe_od_activity_camera);
+                    TextView text = (TextView)findViewById(R.id.detectCup);
+                    text.setText("컵을 반납해주세요");
+                }
             }
         }
         return detections;

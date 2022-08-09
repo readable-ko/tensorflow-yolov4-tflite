@@ -73,7 +73,7 @@ public interface Classifier {
             this.location = location;
         }
 
-        public Recognition(final String id, final String title, final Float confidence, final RectF location, int detectedClass) {
+        public  Recognition(final String id, final String title, final Float confidence, final RectF location, int detectedClass) {
             this.id = id;
             this.title = title;
             this.confidence = confidence;
