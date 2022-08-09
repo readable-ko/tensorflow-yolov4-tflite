@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
@@ -40,30 +41,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         cameraButton = findViewById(R.id.cameraButton);
-        detectButton = findViewById(R.id.detectButton);
-        imageView = findViewById(R.id.imageView);
+//        detectButton = findViewById(R.id.detectButton);
+        //imageView = findViewById(R.id.imageView);
 
         cameraButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
 
-        detectButton.setOnClickListener(v -> {
-            Handler handler = new Handler();
+//        detectButton.setOnClickListener(v -> {
+//            Handler handler = new Handler();
+//
+//            new Thread(() -> {
+//                final List<Classifier.Recognition> results = detector.recognizeImage(cropBitmap);
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        handleResult(cropBitmap, results);
+//                    }
+//                });
+//            }).start();
+//
+//        });
+//        this.sourceBitmap = Utils.getBitmapFromAsset(MainActivity.this, "hand52.jpg");
 
-            new Thread(() -> {
-                final List<Classifier.Recognition> results = detector.recognizeImage(cropBitmap);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleResult(cropBitmap, results);
-                    }
-                });
-            }).start();
+//        this.cropBitmap = Utils.processBitmap(sourceBitmap, TF_OD_API_INPUT_SIZE);
 
-        });
-        this.sourceBitmap = Utils.getBitmapFromAsset(MainActivity.this, "kite.jpg");
-
-        this.cropBitmap = Utils.processBitmap(sourceBitmap, TF_OD_API_INPUT_SIZE);
-
-        this.imageView.setImageBitmap(cropBitmap);
+//        this.imageView.setImageBitmap(cropBitmap);
 
         initBox();
     }
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final boolean TF_OD_API_IS_QUANTIZED = false;
 
-    private static final String TF_OD_API_MODEL_FILE = "yolov4-416-fp32.tflite";
+    private static final String TF_OD_API_MODEL_FILE = "test802-tiny-fp16.tflite";
 
     private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco.txt";
 
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button cameraButton, detectButton;
     private ImageView imageView;
+    private TextView textView;
 
     private void initBox() {
         previewHeight = TF_OD_API_INPUT_SIZE;
