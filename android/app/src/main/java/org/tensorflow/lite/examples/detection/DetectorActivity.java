@@ -195,7 +195,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                         for(int i = 0; i<results.size(); i++) {
                             if(results.get(i).getTitle().equals("reusable")) {
-                                if(flag!=0) flag--;
+                                if(flag>0) flag--;
                                 Log.e("Flag", ": "+Integer.toString(flag));
                             }
                         }
@@ -244,7 +244,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         showFrameInfo(previewWidth + "x" + previewHeight);
                                         showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
                                         showInference(lastProcessingTimeMs + "ms");
-                                        if(finalFlag) {onChangeText(true); /*flag=5;*/}
+                                        if(finalFlag) {onChangeText(true); flag=-1;}
                                         //else onChangeText(false);
                                     }
                                 });

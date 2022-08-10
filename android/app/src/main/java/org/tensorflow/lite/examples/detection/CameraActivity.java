@@ -17,6 +17,8 @@
 package org.tensorflow.lite.examples.detection;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -43,6 +45,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,7 +88,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private ImageView plusImageView, minusImageView;
   private SwitchCompat apiSwitchCompat;
   private TextView threadsTextView;
-  static private TextView view;
+  private TextView view;
+  private Button backToMainActivity;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -113,7 +117,10 @@ public abstract class CameraActivity extends AppCompatActivity
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
     view = findViewById(R.id.detectCup);
+    backToMainActivity = findViewById(R.id.backToMain);
     onChangeText(false);
+
+    onClick(backToMainActivity);
 
     ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(
@@ -500,7 +507,13 @@ public abstract class CameraActivity extends AppCompatActivity
   }
 
   final void onChangeText(boolean flag) {
-    if(flag) view.setText("컵을 반납해주세요");
+    if(flag) {
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setTitle("확인");
+      builder.setMessage("인식되었습니다.");
+      builder.show();
+      view.setText("컵을 반납해주세요");
+    }
     else view.setText("컵을 인식해주세요");
   }
 
