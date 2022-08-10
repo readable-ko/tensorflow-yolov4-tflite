@@ -85,6 +85,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private ImageView plusImageView, minusImageView;
   private SwitchCompat apiSwitchCompat;
   private TextView threadsTextView;
+  static private TextView view;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -111,6 +112,8 @@ public abstract class CameraActivity extends AppCompatActivity
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
+    view = findViewById(R.id.detectCup);
+    onChangeText(false);
 
     ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(
@@ -494,6 +497,11 @@ public abstract class CameraActivity extends AppCompatActivity
       default:
         return 0;
     }
+  }
+
+  final void onChangeText(boolean flag) {
+    if(flag) view.setText("컵을 반납해주세요");
+    else view.setText("컵을 인식해주세요");
   }
 
   @Override
