@@ -10,14 +10,14 @@
     <Button
         android:id="@+id/cameraButton"
         android:layout_width="160dp"
-        android:layout_height="48dp"
+        android:layout_height="47dp"
         android:text="Camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.326" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/detectButton"
@@ -62,14 +62,16 @@
         android:layout_height="119dp"
         android:scaleType="fitStart"
         android:text="반납을 원하시는 경우\n아래 버튼을 클릭해주세요."
+
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/detectButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635"
+        app:layout_constraintVertical_bias="0.5"
         tools:srcCompat="@drawable/kite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
