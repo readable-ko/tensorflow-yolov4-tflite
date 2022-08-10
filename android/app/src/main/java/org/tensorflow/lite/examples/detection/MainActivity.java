@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TF_OD_API_MODEL_FILE = "test802-tiny-fp16.tflite";
 
-    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco.txt";
+    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/testv1_detector.txt";
 
     // Minimum detection confidence to track a detection.
     private static final boolean MAINTAIN_ASPECT = false;

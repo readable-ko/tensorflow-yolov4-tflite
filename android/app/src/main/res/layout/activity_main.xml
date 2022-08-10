@@ -58,10 +58,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="245dp"
-        android:layout_height="101dp"
+        android:layout_width="277dp"
+        android:layout_height="119dp"
         android:scaleType="fitStart"
-        android:text="현묵이는 바다의 보배다.\n 나는 휴학을 하고 싶다."
+        android:text="반납을 원하시는 경우\n아래 버튼을 클릭해주세요."
+
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"

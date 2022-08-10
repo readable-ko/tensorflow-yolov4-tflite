@@ -56,7 +56,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private static final boolean TF_OD_API_IS_QUANTIZED = false;
     private static final String TF_OD_API_MODEL_FILE = "test802-tiny-fp16.tflite";
 
-    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco.txt";
+    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/testv1_detector.txt";
 
     private static final DetectorMode MODE = DetectorMode.TF_OD_API;
     private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
@@ -127,7 +127,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         sensorOrientation = rotation - getScreenOrientation();
         LOGGER.i("Camera orientation relative to screen canvas: %d", sensorOrientation);
 
-        LOGGER.i("Initializing at size %dx%d", previewWidth, previewHeight);
+        LOGGER.i("I dx%d", previewWidth, previewHeight);
         rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Config.ARGB_8888);
         croppedBitmap = Bitmap.createBitmap(cropSize, cropSize, Config.ARGB_8888);
 
@@ -187,6 +187,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         //LOGGER.i("Running detection on image " + currTimestamp);
 
                         final long startTime = SystemClock.uptimeMillis();
+                        // send to cloud
                         final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
                         lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
 
