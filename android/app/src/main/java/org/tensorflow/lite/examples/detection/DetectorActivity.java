@@ -30,6 +30,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -85,6 +86,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private BorderedText borderedText;
 
+    static private int flag;
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
         final float textSizePx =
@@ -96,6 +98,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         tracker = new MultiBoxTracker(this);
 
         int cropSize = TF_OD_API_INPUT_SIZE;
+        flag = 5;
 
         try {
             detector =
@@ -190,7 +193,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
                         lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
 
-                        Log.e("CHECK", "run: " + results.size());
+                        for(int i = 0; i<results.size(); i++) {
+                            if(results.get(i).getTitle().equals("reusable")) {
+                                if(flag!=0) flag--;
+                                Log.e("Flag", ": "+Integer.toString(flag));
+                            }
+                        }
+
+                        Log.e("CHECK", "run: " + results);
 
                         cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
                         final Canvas canvas = new Canvas(cropCopyBitmap);
@@ -226,6 +236,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                         computingDetection = false;
 
+                        boolean finalFlag = flag == 0;
                         runOnUiThread(
                                 new Runnable() {
                                     @Override
@@ -233,6 +244,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         showFrameInfo(previewWidth + "x" + previewHeight);
                                         showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
                                         showInference(lastProcessingTimeMs + "ms");
+                                        if(finalFlag) {onChangeText(true); /*flag=5;*/}
+                                        //else onChangeText(false);
                                     }
                                 });
                     }

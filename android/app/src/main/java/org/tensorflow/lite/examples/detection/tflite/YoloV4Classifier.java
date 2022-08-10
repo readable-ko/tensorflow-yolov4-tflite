@@ -465,11 +465,6 @@ public class YoloV4Classifier extends AppCompatActivity implements Classifier {
                         Math.min(bitmap.getWidth() - 1, xPos + w / 2),
                         Math.min(bitmap.getHeight() - 1, yPos + h / 2));
                 detections.add(new Recognition("" + i, labels.get(detectedClass),score,rectF,detectedClass ));
-                if(labels.get(detectedClass).equals("reusable")) {
-                    setContentView(R.layout.tfe_od_activity_camera);
-                    TextView text = (TextView)findViewById(R.id.detectCup);
-                    text.setText("컵을 반납해주세요");
-                }
             }
         }
         return detections;

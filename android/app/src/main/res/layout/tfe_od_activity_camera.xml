@@ -28,6 +28,13 @@
         android:background="@android:color/black"
         android:orientation="vertical">
 
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:outlineProvider="paddedBounds"
+            tools:context="org.tensorflow.demo.CameraActivity" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -39,6 +46,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="TODO"
                 android:src="@drawable/technonia" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -49,16 +57,21 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="55dp"
             android:background="@drawable/edge"
-            android:outlineProvider="background">
+            android:outlineProvider="background"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/detectCup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="컵을 인식해주세요"
+                android:text="@string/detectCup"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:layout_conversion_absoluteHeight="27dp"
+                tools:layout_editor_absoluteY="69dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_conversion_absoluteWidth="154dp" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -68,12 +81,4 @@
         android:id="@+id/bottom_sheet_layout"
         layout="@layout/tfe_od_layout_bottom_sheet" />
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:outlineProvider="paddedBounds"
-        app:layout_anchor="@+id/relativeLayout"
-        app:layout_anchorGravity="center"
-        tools:context="org.tensorflow.demo.CameraActivity" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
