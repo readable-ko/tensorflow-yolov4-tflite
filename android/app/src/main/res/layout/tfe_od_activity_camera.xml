@@ -67,11 +67,7 @@
                 android:text="@string/detectCup"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                tools:layout_conversion_absoluteHeight="27dp"
-                tools:layout_editor_absoluteY="69dp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_conversion_absoluteWidth="154dp" />
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 

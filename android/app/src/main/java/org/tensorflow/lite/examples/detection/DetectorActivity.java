@@ -187,7 +187,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 new Runnable() {
                     @Override
                     public void run() {
-                        LOGGER.i("Running detection on image " + currTimestamp);
+                        //LOGGER.i("Running detection on image " + currTimestamp);
+
                         final long startTime = SystemClock.uptimeMillis();
                         // send to cloud
                         final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
