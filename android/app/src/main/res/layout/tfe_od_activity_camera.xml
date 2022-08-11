@@ -23,18 +23,60 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@android:color/black"
         android:orientation="vertical">
 
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <Button
+            android:id="@+id/backToMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="40dp"
+            android:text="@string/goback"
+            android:textAlignment="center" />
+
+        <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="112dp"
+            android:layout_marginEnd="-1dp"
             android:outlineProvider="paddedBounds"
-            tools:context="org.tensorflow.demo.CameraActivity" />
+            tools:context="org.tensorflow.demo.CameraActivity">
+
+        </FrameLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/notification_process"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/edge"
+            android:outlineProvider="background"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/detectCup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detectCup"
+                android:textAlignment="center"
+                android:textSize="20sp"
+
+                android:textStyle="bold"
+                tools:layout_conversion_absoluteHeight="27dp"
+                tools:layout_conversion_absoluteWidth="154dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="69dp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -48,27 +90,6 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="TODO"
                 android:src="@drawable/technonia" />
-        </androidx.appcompat.widget.Toolbar>
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/notification_process"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="55dp"
-            android:background="@drawable/edge"
-            android:outlineProvider="background"
-            android:visibility="visible">
-
-            <TextView
-                android:id="@+id/detectCup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/detectCup"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
         </androidx.appcompat.widget.Toolbar>
 
     </RelativeLayout>
