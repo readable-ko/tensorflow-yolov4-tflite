@@ -55,7 +55,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private static final int TF_OD_API_INPUT_SIZE = 416;
     private static final boolean TF_OD_API_IS_QUANTIZED = false;
-    private static final String TF_OD_API_MODEL_FILE = "test802-tiny-fp16.tflite";
+    private static final String TF_OD_API_MODEL_FILE = "test730-tiny-fp16.tflite";
 
     private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/testv1_detector.txt";
 
@@ -87,6 +87,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private BorderedText borderedText;
 
     static private int flag;
+    static private int submit ;
+    static private boolean button = false;
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
         final float textSizePx =
@@ -99,6 +101,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         int cropSize = TF_OD_API_INPUT_SIZE;
         flag = 5;
+        submit = 0 ;
 
         try {
             detector =
@@ -195,13 +198,23 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
 
                         for(int i = 0; i<results.size(); i++) {
-                            if(results.get(i).getTitle().equals("reusable")) {
+                            if(results.get(i).getTitle().equals("reusable") || results.get(i).getTitle().equals("handcup")) {
                                 if(flag>0) flag--;
                                 Log.e("Flag", ": "+Integer.toString(flag));
+                                if(results.get(i).getLocation().bottom <= 331 && results.get(i).getLocation().bottom >= 288)
+                                {
+                                    if(flag == -1) {
+                                        button = true;
+                                        submit = 8;
+                                    }
+                                }
+                                Log.e("TLRB",": " + results.get(i).getLocation().bottom);
                             }
                         }
 
-                        Log.e("CHECK", "run: " + results);
+                        if(button && results.size() == 0 && submit > 1)
+                            submit--;
+                        Log.e("CHECK", "run: " + submit);
 
                         cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
                         final Canvas canvas = new Canvas(cropCopyBitmap);
@@ -245,7 +258,13 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                         showFrameInfo(previewWidth + "x" + previewHeight);
                                         showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
                                         showInference(lastProcessingTimeMs + "ms");
-                                        if(finalFlag) {onChangeText(true); flag=-1;}
+                                        if(finalFlag) {
+                                            onChangeText(true, false); flag=-1;
+                                        }
+                                        if(flag == -1 && submit == 1)
+                                        {
+                                            onChangeText(false, true); submit=-1;
+                                        }
                                         //else onChangeText(false);
                                     }
                                 });
