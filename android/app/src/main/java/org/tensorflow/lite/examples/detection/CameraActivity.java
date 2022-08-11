@@ -21,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
@@ -118,7 +119,7 @@ public abstract class CameraActivity extends AppCompatActivity
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
     view = findViewById(R.id.detectCup);
     backToMainActivity = findViewById(R.id.backToMain);
-    onChangeText(false);
+    onChangeText(false, false);
 
     onClick(backToMainActivity);
 
@@ -506,13 +507,27 @@ public abstract class CameraActivity extends AppCompatActivity
     }
   }
 
-  final void onChangeText(boolean flag) {
+  final void onChangeText(boolean flag, boolean submit) {
     if(flag) {
       AlertDialog.Builder builder = new AlertDialog.Builder(this);
       builder.setTitle("확인");
       builder.setMessage("인식되었습니다.");
       builder.show();
       view.setText("컵을 반납해주세요");
+    }
+    else if(submit)
+    {
+      AlertDialog.Builder submitBuilder = new AlertDialog.Builder(this)
+              .setTitle("반납 완료")
+              .setMessage("반납이 완료되었습니다.\n 감사합니다.")
+              .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  finish();
+                }
+              });
+      AlertDialog submitDialog = submitBuilder.create();
+      submitDialog.show();
     }
     else view.setText("컵을 인식해주세요");
   }

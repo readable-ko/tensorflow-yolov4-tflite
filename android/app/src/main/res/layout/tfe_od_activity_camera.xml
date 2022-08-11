@@ -39,6 +39,15 @@
             android:text="@string/goback"
             android:textAlignment="center" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/notification_process"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="-15dp"
+            android:layout_marginTop="331dp"
+            android:background="#ff0000" />
+
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -73,7 +82,7 @@
                 tools:layout_conversion_absoluteHeight="27dp"
                 tools:layout_conversion_absoluteWidth="154dp"
                 tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="69dp" />
+                tools:layout_editor_absoluteY="69dp"/>
 
         </androidx.appcompat.widget.Toolbar>
 
